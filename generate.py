@@ -71,7 +71,7 @@ NAV = [
 
 POLES = [
     ("immobilier-foncier", "Immobilier & Foncier", "home",
-     ["Vente de terrains", "Vente de maisons", "Visite de terrains",
+     ["Vente de terrains", "Vente de maisons", "Visite de terrains", "Gestion immobilière",
       "Accompagnement à l'achat", "Services ACD & documentation sur parcelles"]),
     ("amenagement-lotissement", "Aménagement & Lotissement", "layers",
      ["Lotissement", "Aménagement foncier", "Ouverture des voies",
