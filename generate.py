@@ -67,6 +67,19 @@ NAV = [
     ("accompagnement.html", "Accompagnement"),
     ("a-propos.html", "À propos"),
 ]
+
+# Bandeau promotionnel affiché en haut de chaque page : offres, nouveautés,
+# bonnes opportunités du moment (terrain, maison, projet...). Un seul objet
+# actif à la fois — PACAM (ou l'équipe) met à jour ces champs pour changer
+# le message. "id" doit changer à chaque nouvelle promo pour que le bandeau
+# réapparaisse même chez un visiteur qui avait fermé la précédente annonce.
+ANNONCE = dict(
+    id="promo-2026-08-tr0185",
+    badge="Nouveau",
+    texte="Nouveau lot disponible dans le lotissement Les Jardins — 700 m², viabilisé, prêt à bâtir.",
+    lien="bien-detail.html?ref=TR-0185",
+    cta="Découvrir ce terrain",
+)
 # "Accueil" est retiré du menu : le logo y renvoie déjà.
 # "Contact" est retiré du menu : le bouton "Nous contacter" du header suffit
 # (éviter un lien + un bouton qui mènent au même endroit).
@@ -227,16 +240,34 @@ ul{margin:0;padding:0;list-style:none;}
 .container{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
 .icon{flex-shrink:0;}
 
-/* ---------- Bandeau maquette ---------- */
-.demo-banner{
-  background:var(--charcoal-2);
-  color:var(--gold);
-  text-align:center;
-  font-size:.8rem;
-  letter-spacing:.02em;
-  padding:8px 16px;
+/* ---------- Bandeau promotionnel (offres, nouveautés, opportunités) ---------- */
+.promo-bar{
+  background:linear-gradient(90deg, var(--orange), var(--gold));
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  max-height:80px;
+  transition:max-height .35s ease, opacity .3s ease, padding .35s ease;
+  padding:11px 50px 11px 18px;
 }
-.demo-banner strong{color:#fff;}
+.promo-bar.hidden{max-height:0;opacity:0;padding-top:0;padding-bottom:0;pointer-events:none;}
+.promo-bar-link{
+  display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;
+  color:#fff;text-align:center;max-width:var(--maxw);margin:0 auto;
+}
+.promo-bar-link:hover .promo-bar-cta{text-decoration:underline;}
+.promo-bar-badge{
+  background:rgba(255,255,255,.25);padding:3px 11px;border-radius:999px;
+  font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0;
+}
+.promo-bar-text{font-size:.86rem;font-weight:500;}
+.promo-bar-cta{font-size:.86rem;font-weight:700;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}
+.promo-bar-close{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.22);border:none;color:#fff;width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s;flex-shrink:0;
+}
+.promo-bar-close:hover{background:rgba(255,255,255,.4);}
 
 /* ---------- Topbar ---------- */
 .topbar{
@@ -559,6 +590,10 @@ footer ul li a:hover{color:var(--gold);}
 }
 @media(max-width:760px){
   .topbar .topbar-hours{display:none;}
+  .promo-bar{max-height:130px;padding:10px 42px 10px 14px;}
+  .promo-bar-link{gap:6px;}
+  .promo-bar-text,.promo-bar-cta{font-size:.78rem;}
+  .promo-bar-close{right:10px;width:24px;height:24px;}
   nav.main-nav{
     position:fixed;top:0;right:-100%;height:100vh;width:78%;max-width:320px;background:#fff;
     flex-direction:column;align-items:flex-start;padding:90px 26px 26px;box-shadow:-10px 0 30px rgba(0,0,0,.12);
@@ -579,6 +614,26 @@ footer ul li a:hover{color:var(--gold);}
 
 JS = """
 document.addEventListener('DOMContentLoaded', function () {
+  // bandeau promotionnel : fermeture mémorisée (par annonce) + clic = navigation
+  var promoBar = document.getElementById('promo-bar');
+  if (promoBar) {
+    var promoId = promoBar.getAttribute('data-promo-id');
+    var dismissedId = null;
+    try { dismissedId = localStorage.getItem('pacam_promo_dismissed'); } catch (e) {}
+    if (dismissedId === promoId) {
+      promoBar.classList.add('hidden');
+    }
+    var promoClose = promoBar.querySelector('[data-close-promo]');
+    if (promoClose) {
+      promoClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        promoBar.classList.add('hidden');
+        try { localStorage.setItem('pacam_promo_dismissed', promoId); } catch (err) {}
+      });
+    }
+  }
+
   // menu mobile
   var toggle = document.querySelector('.menu-toggle');
   var nav = document.querySelector('.main-nav');
@@ -683,7 +738,14 @@ def page_shell(title, description, active, hero, body, extra_head=""):
 </head>
 <body>
 
-<div class="demo-banner">🏗️ <strong>Aperçu exclusif</strong> — Maquette du futur site PACAM, réalisée sur la base de votre cahier des charges. Contenus &amp; coordonnées à titre d'exemple.</div>
+<div class="promo-bar" id="promo-bar" data-promo-id="{ANNONCE['id']}">
+  <a class="promo-bar-link" href="{ANNONCE['lien']}">
+    <span class="promo-bar-badge">{ANNONCE['badge']}</span>
+    <span class="promo-bar-text">{ANNONCE['texte']}</span>
+    <span class="promo-bar-cta">{ANNONCE['cta']} {icon('arrow-right', 14)}</span>
+  </a>
+  <button class="promo-bar-close" type="button" data-close-promo aria-label="Fermer ce message">{icon('x', 16)}</button>
+</div>
 
 <div class="topbar">
   <div class="container">

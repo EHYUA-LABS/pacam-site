@@ -1,5 +1,25 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+  // bandeau promotionnel : fermeture mémorisée (par annonce) + clic = navigation
+  var promoBar = document.getElementById('promo-bar');
+  if (promoBar) {
+    var promoId = promoBar.getAttribute('data-promo-id');
+    var dismissedId = null;
+    try { dismissedId = localStorage.getItem('pacam_promo_dismissed'); } catch (e) {}
+    if (dismissedId === promoId) {
+      promoBar.classList.add('hidden');
+    }
+    var promoClose = promoBar.querySelector('[data-close-promo]');
+    if (promoClose) {
+      promoClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        promoBar.classList.add('hidden');
+        try { localStorage.setItem('pacam_promo_dismissed', promoId); } catch (err) {}
+      });
+    }
+  }
+
   // menu mobile
   var toggle = document.querySelector('.menu-toggle');
   var nav = document.querySelector('.main-nav');
