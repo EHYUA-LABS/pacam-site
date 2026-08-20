@@ -147,10 +147,6 @@ PARCOURS_CLIENT = [
      ["Présenter mon projet", "Demander une étude", "Obtenir une conception de plans",
       "Demander un devis", "Être accompagné dans les démarches"],
      "accompagnement.html", "Présenter mon projet"),
-    ("layers", "Je veux faire aménager mon terrain",
-     ["Lotissement", "Aménagement foncier", "Ouverture des voies",
-      "Décapage", "Reprofilage"],
-     "services.html#amenagement-lotissement", "Voir ce service"),
     ("clipboard", "J'ai besoin d'un accompagnement foncier",
      ["Services ACD", "Documentation sur parcelles", "Démarches liées à mon terrain"],
      "contact.html?demande=accompagnement-foncier", "Demander un accompagnement"),
@@ -169,10 +165,10 @@ PARCOURS_PARTENAIRE = [
      ["Présenter le bien à gérer", "Recherche et sélection de locataires",
       "Suivi locatif et encaissement des loyers", "Entretien et suivi régulier du bien"],
      "contact.html?demande=gestion-immobiliere", "Demander une gestion"),
-    ("compass", "Je veux proposer mon terrain pour un aménagement",
-     ["Présenter votre terrain brut à notre équipe", "Étude de faisabilité et valorisation",
-      "Aménagement et découpage en lots par PACAM", "Partage de la valorisation ou commission sur la revente"],
-     "contact.html?demande=amenagement-apport", "Proposer mon terrain"),
+    ("layers", "Je veux aménager mon terrain",
+     ["Lotissement", "Aménagement foncier", "Ouverture des voies",
+      "Décapage", "Reprofilage"],
+     "services.html#amenagement-lotissement", "Voir ce service"),
 ]
 
 ETAPES = [
@@ -1552,7 +1548,6 @@ def page_contact():
                 <option value="etude">Demander une étude</option>
                 <option value="plans">Obtenir un plan 2D ou 3D</option>
                 <option value="devis">Demander un devis</option>
-                <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
                 <option value="permis">Accompagnement permis de construire</option>
                 <option value="accompagnement-foncier">Accompagnement ACD / documentation foncière</option>
               </optgroup>
@@ -1560,7 +1555,7 @@ def page_contact():
                 <option value="vendre-terrain">Vendre un terrain</option>
                 <option value="vendre-maison">Vendre une maison</option>
                 <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
-                <option value="amenagement-apport">Proposer un terrain pour un aménagement</option>
+                <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
               </optgroup>
               <option value="autre">Autre demande</option>
             </select>
