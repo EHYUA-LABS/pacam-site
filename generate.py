@@ -51,23 +51,25 @@ def icon(name, size=22, cls=""):
 # DONNEES DE CONTACT (placeholders — à remplacer par les informations
 # officielles de PACAM lors de la phase de contenu)
 # ----------------------------------------------------------------------------
-PHONE_DISPLAY = "+237 6 90 00 00 00"
-PHONE_TEL = "+237690000000"
-WHATSAPP_TEL = "237690000000"
-EMAIL = "contact@pacam-immo.com"
-ADDRESS = "Yaoundé, Cameroun"
+DOMAIN = "https://pacamci.com"
+PHONE_DISPLAY = "+225 07 00 00 00 00"
+PHONE_TEL = "+22507000000"
+WHATSAPP_TEL = "22507000000"
+EMAIL = "contact@pacamci.com"
+ADDRESS = "Abidjan, Côte d'Ivoire"
 HOURS = "Lun – Sam : 8h00 – 18h00"
 
 NAV = [
-    ("index.html", "Accueil"),
     ("a-propos.html", "À propos"),
     ("services.html", "Nos services"),
     ("terrains-biens.html", "Terrains & Biens"),
     ("projets.html", "Projets"),
     ("realisations.html", "Nos réalisations"),
     ("accompagnement.html", "Accompagnement"),
-    ("contact.html", "Contact"),
 ]
+# "Accueil" est retiré du menu : le logo y renvoie déjà.
+# "Contact" est retiré du menu : le bouton "Nous contacter" du header suffit
+# (éviter un lien + un bouton qui mènent au même endroit).
 
 POLES = [
     ("immobilier-foncier", "Immobilier & Foncier", "home",
@@ -138,6 +140,10 @@ PARCOURS = [
      ["Consulter les maisons disponibles", "Consulter les détails du bien",
       "Demander des informations", "Organiser une visite"],
      "terrains-biens.html#maisons", "Voir les maisons"),
+    ("shield", "Je veux confier la gestion de mon bien à PACAM",
+     ["Présenter le bien à gérer", "Recherche et sélection de locataires",
+      "Suivi locatif et encaissement des loyers", "Entretien et suivi régulier du bien"],
+     "contact.html?demande=gestion-immobiliere", "Demander une gestion"),
     ("tool", "Je veux construire",
      ["Présenter mon projet", "Demander une étude", "Obtenir une conception de plans",
       "Demander un devis", "Être accompagné dans les démarches"],
@@ -253,8 +259,7 @@ nav.main-nav a{
 nav.main-nav a:hover{background:var(--gray-100);color:var(--orange);}
 nav.main-nav a.active{color:var(--orange);font-weight:600;}
 .header-cta{display:flex;align-items:center;gap:12px;}
-.header-phone{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.92rem;color:var(--charcoal-2);}
-.header-phone .icon{color:var(--orange);}
+.brand.is-home .name{color:var(--orange);}
 .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--charcoal-2);}
 
 /* ---------- Buttons ---------- */
@@ -523,7 +528,6 @@ footer ul li a:hover{color:var(--gold);}
 }
 @media(max-width:760px){
   .topbar .topbar-hours{display:none;}
-  .header-phone span{display:none;}
   nav.main-nav{
     position:fixed;top:0;right:-100%;height:100vh;width:78%;max-width:320px;background:#fff;
     flex-direction:column;align-items:flex-start;padding:90px 26px 26px;box-shadow:-10px 0 30px rgba(0,0,0,.12);
@@ -625,6 +629,8 @@ def page_shell(title, description, active, hero, body, extra_head=""):
         cls = ' class="active"' if href == active else ""
         nav_parts.append(f'<a href="{href}"{cls}>{label}</a>')
     nav_html = "\n".join(nav_parts)
+    brand_cls = ' class="brand is-home"' if active == "index.html" else ' class="brand"'
+    canonical = f"{DOMAIN}/{active}" if active != "index.html" else f"{DOMAIN}/"
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -632,6 +638,13 @@ def page_shell(title, description, active, hero, body, extra_head=""):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} | PACAM — Services Immobilier &amp; Foncier</title>
 <meta name="description" content="{description}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:site_name" content="PACAM">
+<meta property="og:title" content="{title} | PACAM">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#E8720C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -654,7 +667,7 @@ def page_shell(title, description, active, hero, body, extra_head=""):
 
 <header class="site-header">
   <div class="nav-wrap">
-    <a class="brand" href="index.html">
+    <a{brand_cls} href="index.html">
       <img src="images/logo-light.jpg" alt="Logo PACAM">
       <span class="brand-text"><span class="name">PACAM</span><span class="tag">Services Immobilier &amp; Foncier</span></span>
     </a>
@@ -662,7 +675,6 @@ def page_shell(title, description, active, hero, body, extra_head=""):
       {nav_html}
     </nav>
     <div class="header-cta">
-      <div class="header-phone">{icon('phone',18)} <span>{PHONE_DISPLAY}</span></div>
       <a class="btn btn-primary btn-sm" href="contact.html">Nous contacter</a>
       <button class="menu-toggle" aria-label="Ouvrir le menu">{icon('menu',26)}</button>
     </div>
@@ -721,7 +733,7 @@ def page_shell(title, description, active, hero, body, extra_head=""):
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 PACAM — Services Immobilier &amp; Foncier. Tous droits réservés.</span>
+      <span>© 2026 PACAM — Services Immobilier &amp; Foncier. Tous droits réservés. <a href="{DOMAIN}/" style="color:#c9c8c3;">www.pacamci.com</a></span>
       <span>Maquette réalisée pour PACAM — contenus à personnaliser.</span>
     </div>
   </div>
@@ -1474,6 +1486,7 @@ def page_contact():
               <option value="">Sélectionnez...</option>
               <option value="acheter-terrain">Acheter un terrain</option>
               <option value="acheter-maison">Acheter une maison</option>
+              <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
               <option value="demander-une-visite">Demander une visite</option>
               <option value="projet">Réaliser un projet de construction</option>
               <option value="etude">Demander une étude</option>
