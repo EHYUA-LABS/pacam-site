@@ -60,12 +60,12 @@ ADDRESS = "Abidjan, Côte d'Ivoire"
 HOURS = "Lun – Sam : 8h00 – 18h00"
 
 NAV = [
-    ("a-propos.html", "À propos"),
     ("services.html", "Nos services"),
     ("terrains-biens.html", "Terrains & Biens"),
     ("projets.html", "Projets"),
     ("realisations.html", "Nos réalisations"),
     ("accompagnement.html", "Accompagnement"),
+    ("a-propos.html", "À propos"),
 ]
 # "Accueil" est retiré du menu : le logo y renvoie déjà.
 # "Contact" est retiré du menu : le bouton "Nous contacter" du header suffit
