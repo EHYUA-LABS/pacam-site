@@ -36,6 +36,7 @@ ICONS = {
     "send": '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>',
     "star": '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
     "chevron-right": '<polyline points="9 18 15 12 9 6"/>',
+    "box": '<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
     "whatsapp": '<path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.5 0 .16 5.34.16 11.88c0 2.1.55 4.14 1.6 5.95L0 24l6.33-1.66a11.87 11.87 0 0 0 5.7 1.45h.01c6.54 0 11.88-5.34 11.88-11.88 0-3.17-1.23-6.15-3.4-8.43zM12.04 21.6a9.7 9.7 0 0 1-4.95-1.36l-.35-.21-3.75.98 1-3.66-.23-.38a9.7 9.7 0 0 1-1.49-5.19c0-5.37 4.37-9.74 9.78-9.74 2.61 0 5.07 1.02 6.92 2.87a9.7 9.7 0 0 1 2.86 6.9c0 5.37-4.37 9.79-9.79 9.79zm5.36-7.33c-.29-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15-.2.29-.76.95-.93 1.15-.17.19-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.44-.87-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.49.1-.19.05-.36-.02-.51-.07-.15-.66-1.59-.9-2.17-.24-.57-.48-.5-.66-.51h-.56c-.19 0-.51.07-.78.36-.27.29-1.02 1-1.02 2.43s1.05 2.82 1.19 3.02c.15.19 2.06 3.15 5 4.42.7.3 1.24.48 1.67.62.7.22 1.34.19 1.84.12.56-.08 1.73-.71 1.98-1.39.24-.68.24-1.27.17-1.39-.07-.12-.26-.19-.55-.34z"/>',
 }
 
@@ -63,6 +64,7 @@ HOURS = "Lun – Sam : 8h00 – 18h00"
 NAV = [
     ("services.html", "Nos services"),
     ("terrains-biens.html", "Terrains & Biens"),
+    ("materiaux.html", "Matériaux"),
     ("projets.html", "Projets"),
     ("realisations.html", "Nos réalisations"),
     ("accompagnement.html", "Accompagnement"),
@@ -98,6 +100,9 @@ POLES = [
     ("construction-rehabilitation", "Construction & Réhabilitation", "tool",
      ["Construction de bâtiments", "Réhabilitation de bâtiments",
       "Charpentes métalliques", "Montage et suivi de permis de construire"]),
+    ("materiaux-construction", "Matériaux de construction", "box",
+     ["Ciment, fer à béton, sable et gravier", "Briques et parpaings",
+      "Tôles et bois de charpente", "Quincaillerie et outillage", "Livraison sur chantier"]),
 ]
 
 TERRAINS = [
@@ -114,6 +119,33 @@ MAISONS = [
     dict(ref="MA-0224", titre="Maison familiale 3 chambres", loc="Zone calme, proche commodités", surf="180 m²", prix="45 000 000 FCFA", grad="g4"),
     dict(ref="MA-0231", titre="Duplex contemporain", loc="Quartier résidentiel", surf="220 m²", prix="58 000 000 FCFA", grad="g1"),
     dict(ref="MA-0239", titre="Maison à rénover", loc="Centre-ville", surf="150 m²", prix="Prix sur demande", grad="g2"),
+]
+
+MATERIAUX = [
+    dict(ref="MC-001", cat="Gros œuvre", titre="Ciment (sac 50 kg)",
+         desc="Ciment Portland CPJ 32.5, disponible en gros volume pour chantiers de toute taille.",
+         prix="À partir de 6 000 FCFA / sac", unite="le sac", grad="g1"),
+    dict(ref="MC-002", cat="Gros œuvre", titre="Fer à béton (HA 10 à 12)",
+         desc="Barres de fer à béton haute adhérence, plusieurs diamètres disponibles.",
+         prix="Prix sur demande", unite="la barre", grad="g2"),
+    dict(ref="MC-003", cat="Gros œuvre", titre="Gravier & sable",
+         desc="Gravier concassé et sable de rivière, livrés directement sur chantier.",
+         prix="Prix sur demande", unite="le m³", grad="g3"),
+    dict(ref="MC-004", cat="Gros œuvre", titre="Briques & parpaings",
+         desc="Parpaings creux et pleins, plusieurs formats, pour murs porteurs et cloisons.",
+         prix="À partir de 350 FCFA / unité", unite="l'unité", grad="g4"),
+    dict(ref="MC-005", cat="Couverture & Charpente", titre="Tôles bac acier",
+         desc="Tôles ondulées et bac acier, plusieurs coloris et épaisseurs.",
+         prix="Prix sur demande", unite="la feuille", grad="g1"),
+    dict(ref="MC-006", cat="Couverture & Charpente", titre="Bois de charpente",
+         desc="Chevrons, pannes et liteaux traités, pour toitures et ossatures.",
+         prix="Prix sur demande", unite="la pièce", grad="g2"),
+    dict(ref="MC-007", cat="Quincaillerie & Finition", titre="Peinture bâtiment",
+         desc="Peintures intérieures et extérieures, plusieurs teintes et finitions.",
+         prix="Prix sur demande", unite="le pot", grad="g3"),
+    dict(ref="MC-008", cat="Quincaillerie & Finition", titre="Carrelage & faïence",
+         desc="Large choix de carreaux pour sol et mur, plusieurs formats et coloris.",
+         prix="Prix sur demande", unite="le m²", grad="g4"),
 ]
 
 PROJETS = [
@@ -164,6 +196,10 @@ PARCOURS_CLIENT = [
     ("clipboard", "J'ai besoin d'un accompagnement foncier",
      ["Services ACD", "Documentation sur parcelles", "Démarches liées à mon terrain"],
      "contact.html?demande=accompagnement-foncier", "Demander un accompagnement"),
+    ("box", "Je veux acheter des matériaux de construction",
+     ["Consulter le catalogue de matériaux", "Comparer les prix et disponibilités",
+      "Demander un devis", "Organiser la livraison sur chantier"],
+     "materiaux.html", "Découvrir le catalogue"),
 ]
 
 PARCOURS_PARTENAIRE = [
@@ -183,6 +219,10 @@ PARCOURS_PARTENAIRE = [
      ["Lotissement", "Aménagement foncier", "Ouverture des voies",
       "Décapage", "Reprofilage"],
      "services.html#amenagement-lotissement", "Voir ce service"),
+    ("box", "Je veux vendre mes matériaux via PACAM",
+     ["Présenter vos matériaux et stocks disponibles", "Mise en avant sur notre catalogue",
+      "Mise en relation avec les acheteurs", "Accompagnement jusqu'à la vente"],
+     "contact.html?demande=vendre-materiaux", "Proposer mes matériaux"),
 ]
 
 ETAPES = [
@@ -803,6 +843,7 @@ def page_shell(title, description, active, hero, body, extra_head=""):
           <li><a href="a-propos.html">À propos</a></li>
           <li><a href="services.html">Nos services</a></li>
           <li><a href="terrains-biens.html">Terrains &amp; Biens</a></li>
+          <li><a href="materiaux.html">Matériaux</a></li>
           <li><a href="projets.html">Projets</a></li>
           <li><a href="realisations.html">Nos réalisations</a></li>
         </ul>
@@ -814,6 +855,7 @@ def page_shell(title, description, active, hero, body, extra_head=""):
           <li><a href="services.html#amenagement-lotissement">Aménagement &amp; Lotissement</a></li>
           <li><a href="services.html#etudes-conception">Études &amp; Conception</a></li>
           <li><a href="services.html#construction-rehabilitation">Construction &amp; Réhabilitation</a></li>
+          <li><a href="services.html#materiaux-construction">Matériaux de construction</a></li>
         </ul>
       </div>
       <div>
@@ -911,6 +953,28 @@ def prop_card(p, kind="terrain"):
 </div>"""
 
 
+def material_card(m):
+    cat_slug = m["cat"].lower().replace(" & ", "-").replace(" ", "-").replace("œ", "oe").replace("é", "e")
+    detail = f"materiel-detail.html?ref={m['ref']}"
+    devis = f"contact.html?demande=materiaux-construction&bien={m['ref']}"
+    return f"""<div class="card prop-card reveal" data-cat="{cat_slug}">
+  {photo_block(m['grad'], 'box', m['titre'], tag=m['cat'])}
+  <div class="prop-body">
+    <div class="prop-ref">Réf. {m['ref']}</div>
+    <h3>{m['titre']}</h3>
+    <div class="prop-meta">
+      <span>{icon('box',15)} {m['cat']}</span>
+      <span>{icon('ruler',15)} Vendu {m['unite']}</span>
+    </div>
+    <div class="prop-price">{m['prix']}</div>
+    <div class="prop-actions">
+      <a class="btn btn-secondary btn-sm" href="{detail}">Voir les détails</a>
+      <a class="btn btn-primary btn-sm" href="{devis}">Demander un devis</a>
+    </div>
+  </div>
+</div>"""
+
+
 def project_card(p):
     badge_cls = {"En cours": "badge-cours", "Planifié": "badge-planifie", "Terminé": "badge-termine"}[p["etat"]]
     return f"""<div class="card proj-card reveal">
@@ -982,7 +1046,7 @@ def page_index():
       <a class="btn btn-outline-light" href="contact.html">Nous contacter</a>
     </div>
     <div class="stat-row">
-      <div class="stat"><b>4</b><span>pôles de compétences</span></div>
+      <div class="stat"><b>5</b><span>pôles de compétences</span></div>
       <div class="stat"><b>100%</b><span>accompagnement du besoin à la livraison</span></div>
       <div class="stat"><b>24/7</b><span>contact WhatsApp &amp; téléphone</span></div>
     </div>
@@ -1051,10 +1115,10 @@ def page_index():
   <div class="container">
     <div class="section-head reveal">
       <span class="kicker">Nos domaines d'expertise</span>
-      <h2>Quatre pôles pour vous accompagner à chaque étape</h2>
-      <p>Immobilier, aménagement, études et construction : PACAM réunit toutes les compétences nécessaires à la réussite de votre projet.</p>
+      <h2>Cinq pôles pour vous accompagner à chaque étape</h2>
+      <p>Immobilier, aménagement, études, construction et matériaux : PACAM réunit toutes les compétences nécessaires à la réussite de votre projet.</p>
     </div>
-    <div class="grid grid-4">{poles_html}</div>
+    <div class="grid grid-3">{poles_html}</div>
   </div>
 </section>
 
@@ -1177,9 +1241,9 @@ def page_a_propos():
   <div class="container">
     <div class="section-head reveal">
       <span class="kicker">Nos domaines d'intervention</span>
-      <h2>Quatre pôles de compétences complémentaires</h2>
+      <h2>Cinq pôles de compétences complémentaires</h2>
     </div>
-    <div class="grid grid-4">
+    <div class="grid grid-3">
       {"".join(f'<div class="card icon-card reveal"><div class="icon-badge">{icon(i,26)}</div><h3>{t}</h3><a class="card-link" href="services.html#{a}">Découvrir {icon("arrow-right",15)}</a></div>' for a,t,i,_ in POLES)}
     </div>
   </div>
@@ -1305,6 +1369,54 @@ def page_terrains_biens():
 
 
 # ----------------------------------------------------------------------------
+# PAGE : MATERIAUX DE CONSTRUCTION
+# ----------------------------------------------------------------------------
+def page_materiaux():
+    hero = hero_block(
+        "Matériaux de construction", "Achetez vos matériaux de construction chez PACAM",
+        "Ciment, fer à béton, gravier, briques, tôles, quincaillerie : consultez notre catalogue et demandez un devis, avec livraison possible sur chantier.",
+        f'<a class="btn btn-primary" href="#catalogue-materiaux">Voir le catalogue {icon("arrow-right",18)}</a>'
+        f'<a class="btn btn-outline-light" href="contact.html?demande=materiaux-construction">Demander un devis</a>',
+        breadcrumb="Matériaux", small=True,
+    )
+    categories = ["Gros œuvre", "Couverture & Charpente", "Quincaillerie & Finition"]
+    tabs = '<button class="active" data-filter="all">Tous les matériaux</button>' + "".join(
+        f'<button data-filter="{c.lower().replace(" & ", "-").replace(" ", "-").replace("œ", "oe").replace("é", "e")}">{c}</button>'
+        for c in categories
+    )
+    materiaux_html = "\n".join(material_card(m) for m in MATERIAUX)
+    body = f"""
+<section id="catalogue-materiaux">
+  <div class="container">
+    <div class="section-head left reveal">
+      <span class="kicker">Catalogue</span>
+      <h2>Nos matériaux disponibles</h2>
+      <p>Ce catalogue est amené à évoluer régulièrement selon les arrivages. Contactez-nous pour connaître les stocks et tarifs à jour, ou pour une commande en gros volume.</p>
+    </div>
+    <div class="filter-tabs" data-target="#catalogue-materiaux .prop-card">{tabs}</div>
+    <div class="grid grid-3">{materiaux_html}</div>
+  </div>
+</section>
+
+<section class="bg-alt">
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Un matériau que vous ne trouvez pas dans le catalogue ?</h2>
+      <p>Décrivez-nous vos besoins (quantités, délais, livraison) : notre équipe vous propose une offre adaptée à votre chantier.</p>
+      <div class="hero-actions">
+        <a class="btn btn-light" href="contact.html?demande=materiaux-construction">Demander un devis {icon('send',18)}</a>
+      </div>
+    </div>
+  </div>
+</section>
+"""
+    return page_shell(
+        "Matériaux de construction", "Ciment, fer, gravier, briques, tôles et quincaillerie : le catalogue de matériaux de construction PACAM.",
+        "materiaux.html", hero, body,
+    )
+
+
+# ----------------------------------------------------------------------------
 # PAGE : FICHE DETAIL D'UN BIEN (exemple)
 # ----------------------------------------------------------------------------
 def page_bien_detail():
@@ -1400,6 +1512,103 @@ def page_bien_detail():
     return page_shell(
         f"{p['titre']}", f"Fiche détaillée du terrain {p['ref']} proposé par PACAM.",
         "terrains-biens.html", hero, body,
+    )
+
+
+# ----------------------------------------------------------------------------
+# PAGE : FICHE DETAIL D'UN MATERIAU (exemple)
+# ----------------------------------------------------------------------------
+def page_materiel_detail():
+    m = MATERIAUX[0]
+    import json as _json
+    all_materiaux = {item["ref"]: item for item in MATERIAUX}
+    materiaux_json = _json.dumps(all_materiaux, ensure_ascii=False)
+
+    hero = f"""<section class="hero hero-sm">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> {icon("chevron-right",14)} <a href="materiaux.html">Matériaux</a> {icon("chevron-right",14)} <span id="md-crumb">{m['titre']}</span></div>
+    <span class="eyebrow" id="md-eyebrow">{icon('box',15)} {m['cat']}</span>
+    <h1 id="md-title">{m['titre']}</h1>
+    <p class="lead" id="md-sub">Référence {m['ref']} — Vendu {m['unite']}</p>
+  </div>
+</section>"""
+
+    body = f"""
+<section>
+  <div class="container">
+    <a href="materiaux.html" style="display:inline-flex;align-items:center;gap:6px;color:var(--orange);font-weight:600;margin-bottom:24px;"><span style="display:inline-block;transform:scaleX(-1);">{icon('arrow-right',16)}</span> Retour au catalogue</a>
+    <div class="two-col" style="align-items:flex-start;">
+      <div class="reveal">
+        <div class="detail-gallery">
+          <div class="photo main {m['grad']}" id="md-photo-main"><span class="photo-tag" id="md-photo-tag">{m['cat']}</span>{icon('box', 64)}</div>
+          <div class="detail-thumbs">
+            {photo_block('g2', 'camera', 'Vue 2')}
+            {photo_block('g3', 'camera', 'Vue 3')}
+          </div>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-item"><div class="label">Catégorie</div><div class="value" id="md-cat">{m['cat']}</div></div>
+          <div class="spec-item"><div class="label">Prix</div><div class="value" id="md-prix">{m['prix']}</div></div>
+          <div class="spec-item"><div class="label">Référence</div><div class="value" id="md-ref">{m['ref']}</div></div>
+          <div class="spec-item"><div class="label">Conditionnement</div><div class="value" id="md-unite">Vendu {m['unite']}</div></div>
+        </div>
+        <h3>Description</h3>
+        <p id="md-desc">{m['desc']}</p>
+        <h3>Bon à savoir</h3>
+        <ul class="check-list">
+          <li>{icon('check-circle',18)} Quantités adaptées aux petits comme aux gros chantiers</li>
+          <li>{icon('check-circle',18)} Livraison sur chantier possible selon la zone</li>
+          <li>{icon('check-circle',18)} Tarifs préférentiels pour les commandes en volume</li>
+          <li>{icon('check-circle',18)} Disponibilité à confirmer auprès de notre équipe</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="form-card">
+          <h3>Demander un devis</h3>
+          <p style="font-size:.88rem;">Matériau concerné : <strong id="md-form-label">{m['titre']} ({m['ref']})</strong></p>
+          <form data-demo-form>
+            <div class="form-group"><label>Nom &amp; prénom <span class="req">*</span></label><input type="text" name="nom" required></div>
+            <div class="form-group"><label>Téléphone <span class="req">*</span></label><input type="tel" name="telephone" required></div>
+            <input type="hidden" name="bien_concerne" id="md-form-ref" value="{m['ref']}">
+            <div class="form-group"><label>Quantité souhaitée</label><input type="text" name="quantite" placeholder="Ex : 50 sacs, 20 m³..."></div>
+            <div class="form-group"><label>Livraison souhaitée</label><input type="text" name="livraison" placeholder="Retrait ou livraison sur chantier"></div>
+            <div class="form-group"><label>Message</label><textarea name="message" placeholder="Précisez votre demande..."></textarea></div>
+            <button class="btn btn-primary btn-block" type="submit">{icon('send',18)} Envoyer ma demande de devis</button>
+          </form>
+          <p class="form-note">Ou contactez-nous directement au {PHONE_DISPLAY} / WhatsApp.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  var PACAM_MATERIAUX = {materiaux_json};
+  (function () {{
+    var ref = new URLSearchParams(window.location.search).get('ref');
+    var m = ref && PACAM_MATERIAUX[ref];
+    if (!m) return;
+    document.title = m.titre + " | PACAM — Services Immobilier & Foncier";
+    document.getElementById('md-crumb').textContent = m.titre;
+    document.getElementById('md-eyebrow').innerHTML = document.getElementById('md-eyebrow').innerHTML.replace(/{m['cat']}|Gros œuvre|Couverture & Charpente|Quincaillerie & Finition/, m.cat);
+    document.getElementById('md-title').textContent = m.titre;
+    document.getElementById('md-sub').textContent = 'Référence ' + m.ref + ' — Vendu ' + m.unite;
+    document.getElementById('md-photo-tag').textContent = m.cat;
+    document.getElementById('md-cat').textContent = m.cat;
+    document.getElementById('md-prix').textContent = m.prix;
+    document.getElementById('md-ref').textContent = m.ref;
+    document.getElementById('md-unite').textContent = 'Vendu ' + m.unite;
+    document.getElementById('md-desc').textContent = m.desc;
+    document.getElementById('md-form-label').textContent = m.titre + ' (' + m.ref + ')';
+    document.getElementById('md-form-ref').value = m.ref;
+    var photo = document.getElementById('md-photo-main');
+    photo.classList.remove('g1','g2','g3','g4');
+    photo.classList.add(m.grad);
+  }})();
+</script>
+"""
+    return page_shell(
+        f"{m['titre']}", f"Fiche détaillée du matériau {m['ref']} proposé par PACAM.",
+        "materiaux.html", hero, body,
     )
 
 
@@ -1621,12 +1830,14 @@ def page_contact():
                 <option value="devis">Demander un devis</option>
                 <option value="permis">Accompagnement permis de construire</option>
                 <option value="accompagnement-foncier">Accompagnement ACD / documentation foncière</option>
+                <option value="materiaux-construction">Acheter des matériaux de construction</option>
               </optgroup>
               <optgroup label="Je suis partenaire — je confie un bien à PACAM">
                 <option value="vendre-terrain">Vendre un terrain</option>
                 <option value="vendre-maison">Vendre une maison</option>
                 <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
                 <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
+                <option value="vendre-materiaux">Vendre des matériaux via PACAM</option>
               </optgroup>
               <option value="autre">Autre demande</option>
             </select>
@@ -1655,6 +1866,8 @@ PAGES = {
     "services.html": page_services,
     "terrains-biens.html": page_terrains_biens,
     "bien-detail.html": page_bien_detail,
+    "materiaux.html": page_materiaux,
+    "materiel-detail.html": page_materiel_detail,
     "projets.html": page_projets,
     "realisations.html": page_realisations,
     "accompagnement.html": page_accompagnement,
