@@ -235,12 +235,28 @@ section.tight{padding:56px 0;}
 .mini-flow .arrow{color:var(--orange);}
 
 /* parcours cards (home) */
-.parcours-card{padding:28px 24px;display:flex;flex-direction:column;height:100%;}
+.parcours-card{padding:28px 24px;display:flex;flex-direction:column;height:100%;border-top:4px solid var(--orange);}
+.parcours-card.partner{border-top-color:var(--sky);}
 .parcours-card h3{font-size:1.05rem;margin-bottom:12px;}
 .parcours-card ul{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .parcours-card ul li{font-size:.87rem;color:var(--gray-600);display:flex;gap:8px;}
 .parcours-card ul li::before{content:"→";color:var(--orange);font-weight:700;}
+.parcours-card.partner ul li::before{color:var(--sky);}
 .parcours-card .btn{margin-top:auto;}
+
+/* groupes client / partenaire + séparateur */
+.parcours-group-head{display:flex;flex-direction:column;gap:6px;margin-bottom:26px;}
+.parcours-group-head h3{font-size:1.28rem;margin:0;}
+.parcours-group-head p{margin:0;font-size:.92rem;}
+.section-divider{display:flex;align-items:center;gap:18px;margin:52px 0 44px;}
+.section-divider .line{flex:1;height:3px;border-radius:3px;background:linear-gradient(90deg, var(--orange), var(--gray-200));}
+.section-divider .line.right{background:linear-gradient(90deg, var(--gray-200), var(--sky));}
+.section-divider .label{
+  white-space:nowrap;display:flex;align-items:center;gap:9px;font-weight:700;font-size:.8rem;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--charcoal-2);background:#fff;
+  border:1.5px solid var(--gray-200);padding:11px 24px;border-radius:999px;box-shadow:var(--shadow);
+}
+.section-divider .label .icon{color:var(--sky);}
 
 /* CTA band */
 .cta-band{
@@ -330,6 +346,7 @@ footer ul li a:hover{color:var(--gold);}
 .two-col.rev{grid-template-columns:.9fr 1.1fr;}
 .two-col.rev .two-col-media{order:2;}
 .badge-pill{display:inline-flex;align-items:center;gap:8px;background:var(--gray-100);color:var(--orange-dark);padding:7px 16px;border-radius:999px;font-size:.8rem;font-weight:700;margin-bottom:16px;}
+.badge-pill.blue{background:#E5F5FB;color:#0d6c8f;}
 .check-list{display:flex;flex-direction:column;gap:12px;margin:18px 0;}
 .check-list li{display:flex;gap:10px;align-items:flex-start;font-size:.94rem;color:var(--charcoal-2);}
 .check-list li .icon{color:var(--orange);margin-top:2px;}

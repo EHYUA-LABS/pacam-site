@@ -111,17 +111,23 @@
             <label>Type de demande <span class="req">*</span></label>
             <select name="type_demande" required>
               <option value="">Sélectionnez...</option>
-              <option value="acheter-terrain">Acheter un terrain</option>
-              <option value="acheter-maison">Acheter une maison</option>
-              <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
-              <option value="demander-une-visite">Demander une visite</option>
-              <option value="projet">Réaliser un projet de construction</option>
-              <option value="etude">Demander une étude</option>
-              <option value="plans">Obtenir un plan 2D ou 3D</option>
-              <option value="devis">Demander un devis</option>
-              <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
-              <option value="permis">Accompagnement permis de construire</option>
-              <option value="accompagnement-foncier">Accompagnement ACD / documentation foncière</option>
+              <optgroup label="Je suis client — j'achète / je fais réaliser">
+                <option value="acheter-terrain">Acheter un terrain</option>
+                <option value="acheter-maison">Acheter une maison</option>
+                <option value="demander-une-visite">Demander une visite</option>
+                <option value="projet">Réaliser un projet de construction</option>
+                <option value="etude">Demander une étude</option>
+                <option value="plans">Obtenir un plan 2D ou 3D</option>
+                <option value="devis">Demander un devis</option>
+                <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
+                <option value="permis">Accompagnement permis de construire</option>
+                <option value="accompagnement-foncier">Accompagnement ACD / documentation foncière</option>
+              </optgroup>
+              <optgroup label="Je suis partenaire — je confie un bien à PACAM">
+                <option value="vendre-terrain">Vendre un terrain</option>
+                <option value="vendre-maison">Vendre une maison</option>
+                <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
+              </optgroup>
               <option value="autre">Autre demande</option>
             </select>
           </div>

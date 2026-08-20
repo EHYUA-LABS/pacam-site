@@ -131,7 +131,10 @@ VALEURS = [
     ("users", "Proximité", "Une équipe à l'écoute, disponible par téléphone, WhatsApp ou en agence."),
 ]
 
-PARCOURS = [
+# PACAM distingue deux grandes familles de relations :
+# - les CLIENTS : ceux qui acquièrent un bien ou un service auprès de PACAM.
+# - les PARTENAIRES : ceux qui confient un bien à PACAM (vente ou gestion).
+PARCOURS_CLIENT = [
     ("target", "Je veux acheter un terrain",
      ["Consulter les terrains disponibles", "Consulter les informations sur un terrain",
       "Demander une visite", "Contacter PACAM pour poursuivre la démarche"],
@@ -140,21 +143,32 @@ PARCOURS = [
      ["Consulter les maisons disponibles", "Consulter les détails du bien",
       "Demander des informations", "Organiser une visite"],
      "terrains-biens.html#maisons", "Voir les maisons"),
-    ("shield", "Je veux confier la gestion de mon bien à PACAM",
-     ["Présenter le bien à gérer", "Recherche et sélection de locataires",
-      "Suivi locatif et encaissement des loyers", "Entretien et suivi régulier du bien"],
-     "contact.html?demande=gestion-immobiliere", "Demander une gestion"),
     ("tool", "Je veux construire",
      ["Présenter mon projet", "Demander une étude", "Obtenir une conception de plans",
       "Demander un devis", "Être accompagné dans les démarches"],
      "accompagnement.html", "Présenter mon projet"),
-    ("layers", "Je veux aménager un terrain",
+    ("layers", "Je veux aménager mon terrain",
      ["Lotissement", "Aménagement foncier", "Ouverture des voies",
       "Décapage", "Reprofilage"],
      "services.html#amenagement-lotissement", "Voir ce service"),
     ("clipboard", "J'ai besoin d'un accompagnement foncier",
      ["Services ACD", "Documentation sur parcelles", "Démarches liées à mon terrain"],
      "contact.html?demande=accompagnement-foncier", "Demander un accompagnement"),
+]
+
+PARCOURS_PARTENAIRE = [
+    ("trending-up", "Je veux vendre mon terrain",
+     ["Présenter votre terrain à notre équipe", "Estimation et mise en valeur du bien",
+      "Diffusion auprès de nos acquéreurs", "Accompagnement jusqu'à la vente"],
+     "contact.html?demande=vendre-terrain", "Proposer mon terrain"),
+    ("trending-up", "Je veux vendre ma maison",
+     ["Présenter votre maison à notre équipe", "Estimation et mise en valeur du bien",
+      "Diffusion auprès de nos acquéreurs", "Accompagnement jusqu'à la vente"],
+     "contact.html?demande=vendre-maison", "Proposer ma maison"),
+    ("shield", "Je veux confier la gestion de mon bien à PACAM",
+     ["Présenter le bien à gérer", "Recherche et sélection de locataires",
+      "Suivi locatif et encaissement des loyers", "Entretien et suivi régulier du bien"],
+     "contact.html?demande=gestion-immobiliere", "Demander une gestion"),
 ]
 
 ETAPES = [
@@ -407,12 +421,28 @@ section.tight{padding:56px 0;}
 .mini-flow .arrow{color:var(--orange);}
 
 /* parcours cards (home) */
-.parcours-card{padding:28px 24px;display:flex;flex-direction:column;height:100%;}
+.parcours-card{padding:28px 24px;display:flex;flex-direction:column;height:100%;border-top:4px solid var(--orange);}
+.parcours-card.partner{border-top-color:var(--sky);}
 .parcours-card h3{font-size:1.05rem;margin-bottom:12px;}
 .parcours-card ul{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .parcours-card ul li{font-size:.87rem;color:var(--gray-600);display:flex;gap:8px;}
 .parcours-card ul li::before{content:"→";color:var(--orange);font-weight:700;}
+.parcours-card.partner ul li::before{color:var(--sky);}
 .parcours-card .btn{margin-top:auto;}
+
+/* groupes client / partenaire + séparateur */
+.parcours-group-head{display:flex;flex-direction:column;gap:6px;margin-bottom:26px;}
+.parcours-group-head h3{font-size:1.28rem;margin:0;}
+.parcours-group-head p{margin:0;font-size:.92rem;}
+.section-divider{display:flex;align-items:center;gap:18px;margin:52px 0 44px;}
+.section-divider .line{flex:1;height:3px;border-radius:3px;background:linear-gradient(90deg, var(--orange), var(--gray-200));}
+.section-divider .line.right{background:linear-gradient(90deg, var(--gray-200), var(--sky));}
+.section-divider .label{
+  white-space:nowrap;display:flex;align-items:center;gap:9px;font-weight:700;font-size:.8rem;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--charcoal-2);background:#fff;
+  border:1.5px solid var(--gray-200);padding:11px 24px;border-radius:999px;box-shadow:var(--shadow);
+}
+.section-divider .label .icon{color:var(--sky);}
 
 /* CTA band */
 .cta-band{
@@ -502,6 +532,7 @@ footer ul li a:hover{color:var(--gold);}
 .two-col.rev{grid-template-columns:.9fr 1.1fr;}
 .two-col.rev .two-col-media{order:2;}
 .badge-pill{display:inline-flex;align-items:center;gap:8px;background:var(--gray-100);color:var(--orange-dark);padding:7px 16px;border-radius:999px;font-size:.8rem;font-weight:700;margin-bottom:16px;}
+.badge-pill.blue{background:#E5F5FB;color:#0d6c8f;}
 .check-list{display:flex;flex-direction:column;gap:12px;margin:18px 0;}
 .check-list li{display:flex;gap:10px;align-items:flex-start;font-size:.94rem;color:var(--charcoal-2);}
 .check-list li .icon{color:var(--orange);margin-top:2px;}
@@ -851,10 +882,11 @@ def value_card(icon_name, title, text):
 </div>"""
 
 
-def parcours_card(icon_name, title, items, link, cta):
+def parcours_card(icon_name, title, items, link, cta, variant="client"):
     lis = "\n".join(f"<li>{i}</li>" for i in items)
-    return f"""<div class="card parcours-card reveal">
-  <div class="icon-badge">{icon(icon_name, 24)}</div>
+    badge_cls = "icon-badge blue" if variant == "partner" else "icon-badge"
+    return f"""<div class="card parcours-card {variant} reveal">
+  <div class="{badge_cls}">{icon(icon_name, 24)}</div>
   <h3>{title}</h3>
   <ul>{lis}</ul>
   <a class="btn btn-secondary btn-block" href="{link}">{cta} {icon('arrow-right',15)}</a>
@@ -886,7 +918,8 @@ def page_index():
   </div>
 </section>"""
 
-    parcours_html = "\n".join(parcours_card(*p) for p in PARCOURS)
+    parcours_client_html = "\n".join(parcours_card(*p, variant="client") for p in PARCOURS_CLIENT)
+    parcours_partner_html = "\n".join(parcours_card(*p, variant="partner") for p in PARCOURS_PARTENAIRE)
     poles_html = "\n".join(pole_card(*p) for p in POLES)
     terrains_preview = "\n".join(prop_card(p, "terrain") for p in TERRAINS[:3])
     real_preview = "\n".join(real_card(r) for r in REALISATIONS[:4])
@@ -897,9 +930,32 @@ def page_index():
     <div class="section-head reveal">
       <span class="kicker">Que souhaitez-vous faire ?</span>
       <h2>Dites-nous votre besoin, nous vous montrons le chemin</h2>
-      <p>Choisissez le parcours qui correspond à votre projet : PACAM vous guide, étape par étape, jusqu'à la réalisation.</p>
+      <p>PACAM travaille avec deux types de profils : les clients qui souhaitent acquérir un bien ou un service, et les partenaires qui confient un bien à PACAM pour la vente ou la gestion.</p>
     </div>
-    <div class="grid grid-3">{parcours_html}</div>
+
+    <div class="parcours-group reveal">
+      <div class="parcours-group-head">
+        <span class="badge-pill">{icon('target',15)} Vous êtes client</span>
+        <h3>Vous voulez acquérir un bien ou un service PACAM</h3>
+        <p>Achat de terrain ou de maison, construction, aménagement, accompagnement foncier : dites-nous ce qu'il vous faut.</p>
+      </div>
+      <div class="grid grid-3">{parcours_client_html}</div>
+    </div>
+
+    <div class="section-divider reveal">
+      <span class="line"></span>
+      <span class="label">{icon('users',16)} Vous êtes propriétaire ?</span>
+      <span class="line right"></span>
+    </div>
+
+    <div class="parcours-group reveal">
+      <div class="parcours-group-head">
+        <span class="badge-pill blue">{icon('users',15)} Vous êtes partenaire</span>
+        <h3>Vous voulez vendre ou faire gérer votre bien par PACAM</h3>
+        <p>PACAM accompagne aussi les propriétaires qui souhaitent vendre un terrain ou une maison, ou en confier la gestion en toute confiance.</p>
+      </div>
+      <div class="grid grid-3">{parcours_partner_html}</div>
+    </div>
   </div>
 </section>
 
@@ -1484,17 +1540,23 @@ def page_contact():
             <label>Type de demande <span class="req">*</span></label>
             <select name="type_demande" required>
               <option value="">Sélectionnez...</option>
-              <option value="acheter-terrain">Acheter un terrain</option>
-              <option value="acheter-maison">Acheter une maison</option>
-              <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
-              <option value="demander-une-visite">Demander une visite</option>
-              <option value="projet">Réaliser un projet de construction</option>
-              <option value="etude">Demander une étude</option>
-              <option value="plans">Obtenir un plan 2D ou 3D</option>
-              <option value="devis">Demander un devis</option>
-              <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
-              <option value="permis">Accompagnement permis de construire</option>
-              <option value="accompagnement-foncier">Accompagnement ACD / documentation foncière</option>
+              <optgroup label="Je suis client — j'achète / je fais réaliser">
+                <option value="acheter-terrain">Acheter un terrain</option>
+                <option value="acheter-maison">Acheter une maison</option>
+                <option value="demander-une-visite">Demander une visite</option>
+                <option value="projet">Réaliser un projet de construction</option>
+                <option value="etude">Demander une étude</option>
+                <option value="plans">Obtenir un plan 2D ou 3D</option>
+                <option value="devis">Demander un devis</option>
+                <option value="amenagement-lotissement">Lotissement / aménagement foncier</option>
+                <option value="permis">Accompagnement permis de construire</option>
+                <option value="accompagnement-foncier">Accompagnement ACD / documentation foncière</option>
+              </optgroup>
+              <optgroup label="Je suis partenaire — je confie un bien à PACAM">
+                <option value="vendre-terrain">Vendre un terrain</option>
+                <option value="vendre-maison">Vendre une maison</option>
+                <option value="gestion-immobiliere">Confier la gestion de mon bien</option>
+              </optgroup>
               <option value="autre">Autre demande</option>
             </select>
           </div>
