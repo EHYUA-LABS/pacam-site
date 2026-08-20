@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """Générateur de la maquette statique du site PACAM."""
 import os
+import hashlib
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -733,7 +734,7 @@ def page_shell(title, description, active, hero, body, extra_head=""):
 <meta name="theme-color" content="#E8720C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v={CSS_VERSION}">
 {extra_head}
 </head>
 <body>
@@ -836,7 +837,7 @@ def page_shell(title, description, active, hero, body, extra_head=""):
 
 <div class="toast">{icon('check-circle',18)}<span></span></div>
 
-<script src="js/script.js"></script>
+<script src="js/script.js?v={JS_VERSION}"></script>
 </body>
 </html>
 """
@@ -874,6 +875,14 @@ def write(path, content):
 # écriture CSS / JS
 write("css/style.css", CSS)
 write("js/script.js", JS)
+
+# Cache-busting : un hash du contenu est ajouté en paramètre d'URL
+# (?v=...) sur les liens CSS/JS. Ainsi, à chaque modification du style ou
+# du script, le navigateur du visiteur (ou du client en train de recharger
+# la page) va systématiquement récupérer la nouvelle version au lieu de
+# servir une copie en cache — plus besoin de rafraîchissement forcé manuel.
+CSS_VERSION = hashlib.md5(CSS.encode("utf-8")).hexdigest()[:10]
+JS_VERSION = hashlib.md5(JS.encode("utf-8")).hexdigest()[:10]
 
 print("Assets de base générés. Génération des pages...")
 
